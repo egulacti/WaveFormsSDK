@@ -217,6 +217,25 @@ namespace WaveFormsSDK
         FallingNegative  = 1,
     }
 
+     /// <summary>
+    /// Analog input trigger slope
+    /// </summary>
+    public enum TRIGSLOPE : int
+    {
+        /// <summary>
+        /// For edge and transition trigger on rising edge and for pulse trigger on positive pulse.
+        /// </summary>
+        SlopeRise = 0,
+        /// <summary>
+        /// For edge and transition trigger on falling edge and for pulse trigger on negative pulse.
+        /// </summary>
+        SlopeFall = 1,
+        /// <summary>
+        /// For edge and transition trigger on either edge and for pulse trigger on either positivie or negative pulse.
+        /// </summary>
+        SlopeEither = 2,
+    }
+
     /// <summary>
     /// Analog input trigger length condition
     /// </summary>
@@ -2379,30 +2398,30 @@ namespace WaveFormsSDK
 
         // ========================================================================================
         [DllImport("dwf.dll", EntryPoint = "FDwfAnalogInTriggerConditionSet")]
-        static extern bool FDwfAnalogInTriggerConditionSet(HDWF hdwf, TRIGCOND trigcond);
+        static extern bool FDwfAnalogInTriggerConditionSet(HDWF hdwf, TRIGSLOPE trigcond);
 
         /// <summary>
         /// Set the trigger condition for the instrument.
         /// </summary>
         /// <param name="hdwf">Interface handle.</param>
-        /// <param name="trigcond">Trigger condition to set</param>
-        public static void AnalogInTriggerConditionSet(HDWF hdwf, TRIGCOND trigcond)
+        /// <param name="trigslope">Trigger condition to set</param>
+        public static void AnalogInTriggerConditionSet(HDWF hdwf, TRIGSLOPE trigslope)
         {
-            CheckApiProcedureHdwfSet<TRIGCOND>(FDwfAnalogInTriggerConditionSet, "FDwfAnalogInTriggerConditionSet", hdwf, trigcond);
+            CheckApiProcedureHdwfSet<TRIGSLOPE>(FDwfAnalogInTriggerConditionSet, "FDwfAnalogInTriggerConditionSet", hdwf, trigslope);
         }
 
         // ========================================================================================
         [DllImport("dwf.dll", EntryPoint = "FDwfAnalogInTriggerConditionGet")]
-        static extern bool FDwfAnalogInTriggerConditionGet(HDWF hdwf, ref TRIGCOND ptrigcond);
+        static extern bool FDwfAnalogInTriggerConditionGet(HDWF hdwf, ref TRIGSLOPE ptrigcond);
 
         /// <summary>
         /// Get the trigger condition for the instrument.
         /// </summary>
         /// <param name="hdwf">Interface handle.</param>
         /// <returns>Current trigger condition.</returns>
-        public static TRIGCOND AnalogInTriggerConditionGet(HDWF hdwf)
+        public static TRIGSLOPE AnalogInTriggerConditionGet(HDWF hdwf)
         {
-            return CheckApiFunctionHdwfGet<TRIGCOND>(FDwfAnalogInTriggerConditionGet, "FDwfAnalogInTriggerConditionGet", hdwf);
+            return CheckApiFunctionHdwfGet<TRIGSLOPE>(FDwfAnalogInTriggerConditionGet, "FDwfAnalogInTriggerConditionGet", hdwf);
         }
 
         // ========================================================================================
